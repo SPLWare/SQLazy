@@ -252,7 +252,7 @@ Detect continuous patterns in time-series data – one of the hardest problems t
 - Filter all stocks with rising streaks longer than N days
 - Extract every rising streak period that exceeds 3 days
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/consecutive-trends
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/consecutive-trends
 
 ---
 
@@ -262,7 +262,7 @@ Split event streams into logical sessions and generate sequence numbers based on
 - Number events and reset counters when time gaps exceed 1 hour
 - Create conditional running totals that reset when a condition is met
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/event-sequencing
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/event-sequencing
 
 ---
 
@@ -272,7 +272,7 @@ Dynamic grouping based on data values and running status – eliminates complex 
 - Calculate totals differently for single-customer vs multi-customer groups
 - Group records automatically when a running status flag changes
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/conditional-grouping
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/conditional-grouping
 
 ---
 
@@ -282,7 +282,7 @@ Rolling window calculations and interval aggregations with automatic missing val
 - Build minute-by-minute price bars (OHLC) with gap filling
 - Calculate 5-minute rolling totals over time-series data
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/time-window-analytics
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/time-window-analytics
 
 ---
 
@@ -292,7 +292,7 @@ Prepare messy datasets for reporting and analytics with simple, readable steps.
 - Hide repeated values in reports (replace duplicates with NULL)
 - Generate status flags based on recent consecutive row values
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/data-cleaning
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/data-cleaning
 
 ---
 
@@ -302,7 +302,7 @@ Add, modify or inject rows into grouped results without complex union operations
 - Insert a header row before each group of records
 - Split total amounts across multiple rows while preserving the grand total
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/group-enhancement
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/group-enhancement
 
 ---
 
@@ -312,7 +312,7 @@ Reshape data for BI tools and reports – no more dynamic SQL or stored procedur
 - Turn unique row values into dynamic columns (automatic pivot tables)
 - Split invoice totals evenly across line items while maintaining sum integrity
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/dynamic-reporting
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/dynamic-reporting
 
 ---
 
@@ -325,7 +325,7 @@ Real-world trading and finance SQL problems that analysts deal with daily.
 - Extract all rising streak periods for market analysis
 - Compute rolling averages and totals for technical indicators
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/financial-analysis
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/financial-analysis
 
 ---
 
@@ -337,7 +337,7 @@ Sessionization and event tracking patterns for user behavior analysis.
 - Backfill missing time intervals in user activity data
 - Track session-based counters that reset on new sessions
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/behavioral-analytics
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/behavioral-analytics
 
 ---
 
@@ -349,7 +349,7 @@ Complex summarization patterns that require stateful calculations across rows.
 - Calculations that depend on values from previous consecutive rows
 - Nested ordered aggregation within hierarchical groups
 
-👉 https://github.com/tosssman/sqlazy_test/tree/main/examples/advanced-aggregation
+👉 https://github.com/tosssman/sqlazy/tree/main/examples/advanced-aggregation
 
 ---
 
@@ -387,7 +387,7 @@ See the [LICENSE](LICENSE) file for details.
 
 ## Community & Feedback
 
-* Issues: [https://github.com/tosssman/sqlazy_test/issues](https://github.com/tosssman/sqlazy_test/issues)
+* Issues: [https://github.com/tosssman/sqlazy/issues](https://github.com/tosssman/sqlazy/issues)
 * Forum: [https://c.esproc.com/](https://c.esproc.com/)
 * Enterprise licensing: [contact@scudata.com](mailto:contact@scudata.com)
 
