@@ -514,6 +514,7 @@ Planned capabilities include:
 
 These features are planned for upcoming releases.
 
+---
 
 ## License
 
