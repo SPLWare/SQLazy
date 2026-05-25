@@ -3,7 +3,7 @@ Syntax: <SQL>  [db <database_connection_name>] [DQL]
 Parameter: **SQL**
 The database structured query language. Required parameter; string type; parameter name must be omitted.
 Parameter: **db**
-Corresponds to the database connection name in NLC configuration items, which includes necessary connection information such as URL, driver, username, password. Optional parameter, default is the first database connection name; type is string, including expressions that evaluate to a string; parameter name must be omitted.
+Corresponds to the database connection name in NLC configuration items, which includes necessary connection information such as URL, driver, username, password. Optional parameter; type is string, including expressions that evaluate to a string; parameter name must be omitted.
 > Example: access the database using connection name orcl, execute SQL, query the Order_example_table and generate the corresponding structured data.
 NLC: SQL "select * from Orders where Amount>1000 and Amount<=10000"; orcl
 Results:
