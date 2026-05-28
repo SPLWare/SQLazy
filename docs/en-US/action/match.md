@@ -1,24 +1,27 @@
 ### Action: match
-Syntax: [<reference_column_name>] [with <reference_table_name>] [<join_column_name>] [option] [condition <condition_expression>]
-Parameter: **reference_column_name** 
-One or more fields in the left table (current table) used for matching, including # (i.e., the position field/row number field). Optional parameter, when the parameter value is omitted, it means the parameter value is the focus column in the context; type is field identifier or set of field identifiers; parameter name must be omitted.
-> Employee_table and Department_table match via the DepartmentID field, delete records in Employee_table that cannot be matched
-Partial NLC code: match DepartmentID…  //ellipsis indicates the code is incomplete and cannot run independently
-Parameter: **with <reference_table_name>**
-The right table used to match against the left table. Required parameter; type is table identifier; parameter name cannot be omitted.
-> Employee_table and Department_table perform an equality match via the DepartmentID field, filter out records in Employee_table that can be matched
-Partial NLC code: match DepartmentID; with Department_table…	//This example and the above example are different expressions of the same calculation.
+Syntax: [<base_column_name>] [with <associated_table_name>] [<join_column_name>] [option] [condition <condition_expression>]
+Parameter: **base_column_name** 
+One or more fields in the left table (current table) used for matching, including # (the positional field/row number field). Optional parameter; if absent, it means that a fully non-equi match must be established via the **condition <condition_expression>** parameter; if present, an equi-match is established using this parameter, and a non-equi match condition can be further added using **condition <condition_expression>**. Type is a field identifier or a set of field identifiers; the parameter name must be omitted.
+> Match the employee table with the department table on the department number field, and delete records in the employee table that have no match.
+Partial NLC code: match department_number…  // the ellipsis indicates the code is incomplete and not yet runnable
+Parameter: **with <associated_table_name>**
+The right table to be matched against the left table. Required parameter; type is a table identifier; the parameter name cannot be omitted.
+> Perform an equi-match between the employee table and department table on the department number field, and filter out the records in the employee table that have a match.
+Partial NLC code: match department_number; with department_table…	// This example and the previous one are two ways of expressing the same calculation.
 Parameter: **join_column_name**
-One or more fields in the right table used for matching, including # (i.e., the position field/row number field). Optional parameter, when the parameter value is omitted, it means the parameter value is the primary key or the column in the right table with the same name as the reference column; type is field identifier or set of field identifiers; parameter name must be omitted.
-> Filter out records from Employee_table that can be matched with Department_table via the DepartmentID field.
-Partial NLC code: match DepartmentID; with Department_table; DepartmentID…  //In this example, the join column name is the same as the reference column name, so it can be omitted. This example and the previous two examples are different expressions of the same calculation.
+One or more fields in the right table used for matching, including # (the positional field/row number field). Optional parameter; omitting the parameter value means the value is the primary key or a column in the right table with the same name as the base column; type is a field identifier or a set of field identifiers; the parameter name must be omitted.
+> Through the department number field, filter the employee table to keep records that can be matched with the department table.
+Partial NLC code: match department_number; with department_table; department_number…  // Here the join column name is the same as the base column name, so it can be omitted. This example and the two above are different expressions of the same calculation.
 Parameter: **option**
-The filter method after matching, with two parameter values (enum values): miss/not_exists, exists. The former means keeping records that can be matched, the latter means keeping records that cannot be matched.
-Optional parameter, when this parameter is absent, it means the default parameter value is "miss/not_exists", as in the previous example; enum type; parameter name must be omitted.
-> Employee_table and Department_table match via the DepartmentID field, keep records in Employee_table that cannot be matched
-NLC: match DepartmentID; with Department_table; DepartmentID; exists
+The filtering method after matching, with two parameter values (enumeration values): exists, miss. The former means keeping records that have a match, the latter means keeping records that do not have a match.
+Optional parameter; if absent, the default parameter value is "exists", as in the previous example; enumerated type; the parameter name must be omitted.
+> Match the employee table with the department table on the department number field, and keep records in the employee table that have no match.
+NLC: match department_number; with department_table; department_number; miss
 Parameter: **condition <condition_expression>**
-This parameter is a condition for matching, usually containing fields from the reference table (left table) and the right table, where fields of the reference table must use the @ suffix, and fields of non-reference tables must not have the @ suffix, e.g., NLC code: OrderDate>RegistrationDate@, where the field OrderDate is a field of the right table, and the field RegistrationDate is a field of the left table. The function of this parameter is similar to the WHERE condition in SQL's "join on… where…", e.g., SQL code: "select left_table.* from left_table join right_table on left_table.id=right_table.id where right_table.OrderDate>left_table.RegistrationDate", the NLC condition is similar to "right_table.OrderDate>left_table.RegistrationDate" in SQL.
-Optional parameter; conditional expression; parameter name cannot be omitted.
-> Employee_table and Department_table match via the DepartmentID field, filter by the condition (EmployeeSalary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contains DepartmentName), keep records in Employee_table that cannot be matched.
-NLC: match DepartmentID; with Department_table; DepartmentID; exists; condition (EmployeeSalary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contains DepartmentName)
+This parameter is the condition expression for the match. It usually contains fields from the base table (left table) and the right table, where base table fields must have an @ suffix and non-base table fields must have no @ suffix, e.g., in NLC code: order_date>registration_date@, here order_date is a right table field and registration_date is a left table field. The role of this parameter is similar to the "where" condition in "join on… where…" in SQL, e.g., in SQL code: "select left_table.* from left_table join right_table on left_table.id=right_table.id where right_table.order_date>left_table.registration_date", the NLC condition expression is analogous to "right_table.order_date>left_table.registration_date" in SQL.
+Optional parameter; if absent, the **base_column_name** parameter must be present; if present, the **base_column_name** parameter may be absent. Condition expression; the parameter name cannot be omitted.
+> Match the employee table and department table on the department number field, filter with the condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name), and keep records in the employee table that have no match.
+NLC: match department_number; with department_table; department_number; miss; condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name)
+
+> Match the employee table and department table, filter with the condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name), and keep records in the employee table that have no match.
+NLC: match with department_table; miss; condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name)
