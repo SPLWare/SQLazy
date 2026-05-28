@@ -3,9 +3,9 @@
 参数：**SQL**
 数据库的结构化查询语言。必要参数；字串类型；必须省略参数名。
 参数：** 数据库**
-对应NLC配置项里的数据库连接名，配置包括url、驱动、用户名、口令等必要的连接信息。非必要参数；类型是字串，含结果为字串的计算式；必须省略参数名。
+对应NLC配置项里的数据库连接名，配置包括url、驱动、用户名、口令等必要的连接信息。非必要参数；类型是字串，含结果为字串的计算式；不能省略参数名。
 > 例子：根据连接名orcl访问数据库, 执行SQL，查询订单例子表并生成相应的结构化数据。
-NLC：SQL "select * from Orders where Amount量>1000 and Amount量<=10000"; orcl
+NLC：SQL "select * from Orders where Amount量>1000 and Amount量<=10000"; 数据库 orcl
 结果：
 OrderID	ClientID	SellerId	Amount量	OrderDate
 1	WVF	5	1440.0	2022-01-04
