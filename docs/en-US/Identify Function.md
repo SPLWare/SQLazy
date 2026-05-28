@@ -121,3 +121,5 @@ A fixed algorithm whose result is a simple data type is a Function. It may have 
 **month_days** Return the total number of days in the month containing a given date.
 **quarter_days** Return the total number of days in the quarter containing a given date.
 **year_days** Return the total number of days in the year containing a given date.
+**day_of_year** Calculate the day number of a date within its year, starting from January 1st as day 1
+**week_of_year** Calculate the week number of a date within its year, starting from January 1st as week 1

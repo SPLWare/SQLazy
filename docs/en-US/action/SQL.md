@@ -1,5 +1,5 @@
 ### Action: SQL
-Syntax: <SQL>  [db <database_connection_name>] [DQL]
+Syntax: <SQL>  [db <database_connection_name>]
 Parameter: **SQL**
 The database structured query language. Required parameter; string type; parameter name must be omitted.
 Parameter: **db**
@@ -13,8 +13,3 @@ OrderID	ClientID	SellerId	Amount	OrderDate
 4	JFS	27	1670.8	2022-01-12
 5	DSG	15	3730.0	2022-01-15
 6	JFE	10	1444.8	2022-01-19
-Parameter: **DQL**
-Indicates that the parameter **SQL** uses DQL syntax. DQL is a SQL-like syntax; you don't need to care about its specific details. Optional parameter; boolean type; parameter name cannot be omitted, no parameter value.
-> Example: execute a DQL
-NLC: SQL "SELECT SUM(buss_zwsc), AVG(fee_rate) ON dim_time, dim_company FROM fact_package"; DQL  
-Explanation: The data source name is omitted in the above NLC code.
