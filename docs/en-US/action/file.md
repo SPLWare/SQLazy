@@ -1,5 +1,5 @@
-### Action: file
-Syntax: <file>  [sheet <sheet_name>]  [delimeter <symbol>]  [csv]  [header]
+﻿### Action: file
+Syntax: <file>  [sheet <sheet_name>]  [delimiter <symbol>]  [csv]  [header]
 Parameter: **file**
 The file name and path to read. Required parameter; string type; parameter name must be omitted. Path is separated by "\\" or "/"; supports absolute paths.
 > Example: read the tab-separated text file C:\1\Orders.txt, first row is the header.
@@ -22,12 +22,12 @@ Parameter: **sheet**
 If the file is Excel, you can specify the sheet name to load. Optional parameter, default (when this parameter is absent) loads the first sheet; string type; parameter name cannot be omitted.
 > Example: read Sheet3 of the Excel, first row is column names
 NLC: file "C:\\Orders.xls"; sheet Sheet3; header
-Parameter: **delimeter**
+Parameter: **delimiter**
 If the file is a text file, you can specify the delimiter between columns. Optional parameter, default (when this parameter is absent) is tab; string type; parameter name cannot be omitted.
 > Example: read a text file with semicolon as delimiter, first row as header
-NLC: file "C:\\Orders.txt"; delimeter semicolon; header
+NLC: file "C:\\Orders.txt"; delimiter semicolon; header
 Parameter: **csv** 
-Whether to use comma as the delimiter. Optional parameter, equivalent to "delimeter comma", mutually exclusive with the parameter "delimeter"; boolean type (parameter name cannot be omitted, no parameter value).
+Whether to use comma as the delimiter. Optional parameter, equivalent to "delimiter comma", mutually exclusive with the parameter "delimiter"; boolean type (parameter name cannot be omitted, no parameter value).
 > Example: read a comma-separated text file, header in the first row.
 NLC: file "C:\\Orders.csv"; csv; header
 Parameter: **header**	

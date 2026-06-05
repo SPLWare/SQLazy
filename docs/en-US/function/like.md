@@ -1,12 +1,15 @@
 #### function: like
-Syntax: (<object_parameter> like(<pattern> [sql_match]))
+Syntax: (<object_parameter> like <pattern> [case_insensitive] [sql_match])
 Return: boolean. Returns true if <object_parameter> matches the <pattern> containing wildcards, otherwise false.
 Parameter **<object_parameter>**: Required parameter; string type; parameter name omitted.
 Parameter **<pattern>**: string containing wildcards. Default wildcards: * (zero or more characters), ? (one character). Required parameter; string type; parameter name omitted.
-> Example: Does "abc123" match the pattern "123*"?
-NLC snippet: ("abc123" like("123*")) // returns true
-> Example: Does "abc123" match the pattern "123?"?
-NLC snippet: ("abc123" like("123?")) // returns false
-Parameter **[sql_match]**: Default wildcards are *, ?. With this parameter, switch to SQL wildcards: % (zero or more characters), _ (one character).
-> Example: Does "abc123" match the pattern "123_", using SQL wildcards?
-NLC snippet: ("abc123" like("123_"; sql_match)) // returns true
+> Example: Does "abc123" match the pattern "abc*"?
+NLC snippet: ("abc123" like "abc*") // returns true
+> Example: Does "abc123" match the pattern "abc?"?
+NLC snippet: ("abc123" like "abc?") // returns false
+Parameter **[case_insensitive]**: Default is case-sensitive. With this parameter the matching becomes case-insensitive. Optional parameter; boolean type; parameter name must not be omitted, parameter value must be omitted.
+> Example: Does "abc123" match the pattern "ABC*", case-insensitive?
+NLC snippet: ("abc123" like "ABC*"; case_insensitive) // returns true
+Parameter **[sql_match]**: Default wildcards are *, ?. With this parameter, switch to SQL wildcards: % (zero or more characters), _ (one character). Optional parameter; boolean type; parameter name must not be omitted, parameter value must be omitted.
+> Example: Does "abc123" match the pattern "abc%", using SQL wildcards?
+NLC snippet: ("abc123" like "abc%"; sql_match) // returns true

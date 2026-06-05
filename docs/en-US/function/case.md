@@ -1,5 +1,5 @@
-#### function: case
-Syntax: (<object_parameter> case ({<comparison_value> [then <equal_expression>]} [else <unequal_expression>]))
+﻿#### function: case
+Syntax: (<object_parameter> case {<comparison_value> [then <equal_expression>]} [else <unequal_expression>])
 Return value: simple data type.
 Parameter **<object_parameter>**: original value/expression to be evaluated. Required parameter; simple data type; parameter name omitted.
 Parameter **<comparison_value>**: value to compare with <object_parameter>. Required parameter; simple data type; parameter name omitted.

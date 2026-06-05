@@ -1,12 +1,12 @@
-### Action: compute
+﻿### Action: compute
 Syntax: {<formula> [summary] [cross] [as <new_column_name>]} [partition]
 Key Rules
 -	The parameters [summary] and [cross] are mutually exclusive, only one can be chosen, cannot appear together.
 -	{} indicates that it can be repeated multiple times. In the syntax of this action, it specifically means multiple computed columns can be created, each with its own set of parameters <formula> [summary] [cross] [as <new_column_name>]. Different computed columns and <partition> are separated by semicolons.
 Parameter: **<formula>**
 Usually an expression based on one or more fields, also allowing special expressions like constants and null values. Required parameter; expression type; parameter name must be omitted.
-> Example: calculate the target amount for Order_example_table using the expression "if OrderDate year equals 2022 and OrderDate month equals 3 then Amount*1.1".
-NLC: compute (if OrderDate year equals 2022 and OrderDate month equals 3 then Amount*1.1) , as TargetAmount
+> Example: calculate the target amount for Order_example_table using the expression "if ((OrderDate_year=2022 and OrderDate_month=3) then Amount*1.1)".
+NLC: compute (if ((OrderDate_year=2022 and OrderDate_month=3) then Amount*1.1)) , as TargetAmount
 Parameter: **[summary]** 
 **[summary]** is to continue with an aggregation calculation based on the parameter <formula>. Note that any <formula> can use this parameter; when <formula> is of the relative interval F[a:b] form (a != b), the value is a set, and this parameter must be used (the parameter [cross] cannot be used), e.g., OrderAmount[-2:1], which represents the set of OrderAmount from the 2nd record before the current position to the 1st record after, a total of 4 records; when the <formula> is not of the relative interval form, this parameter is not mandatory (i.e., choose one between this parameter and [cross]), e.g., OrderAmount, OrderAmount*0.1, UnitPrice*Quantity. When using non-relative-interval (non-set) aggregation within the same partition, each row may produce the same calculation result; when using relative-interval (set) aggregation, the calculation results of each row are usually different. Without the partition parameter, it can be considered as having only one partition. Optional parameter; enum type; parameter name must be omitted, parameter value cannot be omitted. The explanations of the enum values are as follows:
 first, last: the first and last item respectively, often require prior sorting.
@@ -50,3 +50,4 @@ Parameter: **[partition]**
 Calculate by partition, partitions do not affect each other, similar to SQL's PARTITION BY. Optional parameter; identifier type; parameter name cannot be omitted.
 > Example: For Order_example_table already sorted by OrderDate, for each customer's records use the expression " Amount[-1]*1.1" to perform cross-row calculation, and fill the result into the new column TargetAmount, ensuring customers do not affect each other.
 NLC: compute Amount[-1]*1.1, as TargetAmount; partition ClientID
+

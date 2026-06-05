@@ -1,11 +1,11 @@
-### Action: list
+﻿### Action: list
 Syntax: [from <ordered_set_start>] [to <ordered_set_end>] [step <step_size>] [unit] [as <single_column_table_field_name>] [no_end]
 Parameter: **from** Parameter: **to**
 These two parameters are generally used together, representing the lower and upper bounds of the ordered set. Generate an ordered set starting from **from** until **to**. **from** is not a required parameter, default is 1; **to** is a required parameter; date-time, integer (or expression that evaluates to date-time/integer), the data types of **from** and **to** must be the same; parameter name cannot be omitted.
 > Example: generate ordered set [1,2,3,4,5,6,7]
-NLC: col1=list to 7
+NLC: list to 7
 > Example: generate ordered set [3,4,5,6,7]
-NLC: col2=list from 3, to 7
+NLC: list from 3, to 7
 Parameter: **step**
 The interval when generating the ordered set, default is 1, i.e., generate sequentially. Optional parameter, default step is 1; type same as from/to; parameter name cannot be omitted.
 > Example: generate ordered set [3,5,7]

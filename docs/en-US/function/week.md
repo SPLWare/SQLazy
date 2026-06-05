@@ -1,6 +1,6 @@
-#### function: week
+﻿#### function: week
 Syntax: week(<date>)
-Return: integer. Returns the week number of the year (1-53) for the week containing <date>.
+Return: integer. Returns which day of the week <date> falls on, with Sunday as day 1.
 Parameter **<date>**: original value. Required parameter; date type; parameter name omitted.
-> Example: Week number of 2026-01-15.
-NLC snippet: week(2026-01-15) // result is 3
+> Example: Day-of-week number for the date 2026-06-03.
+NLC snippet: week(2026-06-03) // result is 4

@@ -1,4 +1,4 @@
-### Action: match
+﻿### Action: match
 Syntax: [<base_column_name>] [with <associated_table_name>] [<join_column_name>] [option] [condition <condition_expression>]
 Parameter: **base_column_name** 
 One or more fields in the left table (current table) used for matching, including # (the positional field/row number field). Optional parameter; if absent, it means that a fully non-equi match must be established via the **condition <condition_expression>** parameter; if present, an equi-match is established using this parameter, and a non-equi match condition can be further added using **condition <condition_expression>**. Type is a field identifier or a set of field identifiers; the parameter name must be omitted.
@@ -20,8 +20,10 @@ NLC: match department_number; with department_table; department_number; miss
 Parameter: **condition <condition_expression>**
 This parameter is the condition expression for the match. It usually contains fields from the base table (left table) and the right table, where base table fields must have an @ suffix and non-base table fields must have no @ suffix, e.g., in NLC code: order_date>registration_date@, here order_date is a right table field and registration_date is a left table field. The role of this parameter is similar to the "where" condition in "join on… where…" in SQL, e.g., in SQL code: "select left_table.* from left_table join right_table on left_table.id=right_table.id where right_table.order_date>left_table.registration_date", the NLC condition expression is analogous to "right_table.order_date>left_table.registration_date" in SQL.
 Optional parameter; if absent, the **base_column_name** parameter must be present; if present, the **base_column_name** parameter may be absent. Condition expression; the parameter name cannot be omitted.
-> Match the employee table and department table on the department number field, filter with the condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name), and keep records in the employee table that have no match.
-NLC: match department_number; with department_table; department_number; miss; condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name)
+> Match the employee table and department table on the department number field, filter with the condition (employee_salary@>=5000 and (["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name)), and keep records in the employee table that have no match.
+NLC: match department_number; with department_table; department_number; miss; condition (employee_salary@>=5000 and (["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name))
 
-> Match the employee table and department table, filter with the condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name), and keep records in the employee table that have no match.
-NLC: match with department_table; miss; condition (employee_salary@>=5000 and ["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name)
+> Match the employee table and department table, filter with the condition (employee_salary@>=5000 and (["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name)), and keep records in the employee table that have no match.
+NLC: match with department_table; miss; condition (employee_salary@>=5000 and (["Sales Dept 1","Sales Dept 2","Product Dept"] contain department_name))
+
+
