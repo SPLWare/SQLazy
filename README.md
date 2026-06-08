@@ -208,6 +208,7 @@ But the SQLazy workflow is easy to read, review, and audit.
 ### Download the Desktop IDE
 
 💻 Download Desktop IDE: [zh](https://www.raqsoft.com.cn/download-NaturalSPL) [en](https://www.esproc.com/download-NaturalSPL/)
+
 Best for daily work and large datasets.
 
 Features:
