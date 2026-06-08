@@ -6,7 +6,7 @@ The parameter <rank_by> indicates what to internally sort by, based on which ran
 The parameter [direction] is the direction of the ranking basis. Optional parameter, default ascending; type is enum, enum values are small_to_large (asc), large_to_small (desc); both parameter name and parameter value cannot be omitted.
 **Important Rule**: The <sort_by> and [direction] parameters can both be absent, meaning ranking by the original record order. If these parameters appear, they can be in pairs, or only <sort_by> with [direction] defaulted. Multiple pairs can appear, meaning calculating rank based on the sequential sorting result.
 > Rank the Order_example_table (focus table) by the expression (len(customer)) descending, then OrderAmount ascending, assign the rank to the new field rankall.
-NLC: rank expression(len(customer)) desc, OrderAmount; as rankall.
+NLC: rank (len(customer)) desc, OrderAmount; as rankall.
 
 Parameter: **as <new_column_name_for_rank>**
 When the rank needs to be written into a new column, this parameter should be used. Optional parameter; type is field identifier; parameter name cannot be omitted. Note, this parameter and the subsequent parameter **filter** cannot be used together; when not using this parameter, the subsequent parameter **filter** must be used to return partial records, without changing the table structure.

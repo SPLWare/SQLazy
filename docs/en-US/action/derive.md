@@ -14,6 +14,7 @@ OrderID	OriginalAmount	Amount*1.1
 Parameter: [append]
 Default does not copy the original table. When this parameter is present, it means copying the original table and calculating to generate new columns, i.e., appending new columns to the original table, equivalent to a simplified compute action. Optional parameter; boolean type; parameter name cannot be omitted, parameter value must be omitted.
 > Example: append new columns to Order_example_table, rename the Amount field to OriginalAmount, generate a new field using the expression (Amount*1.1), with an automatically generated name.
+NLC: derive append Amount as OriginalAmount, Amount*1.1
 Result:
 OrderID	Amount	OrderDate	OriginalAmount	Amount*1.1
 1	440	2021-01-01	484	440	484
@@ -24,6 +25,7 @@ OrderID	Amount	OrderDate	OriginalAmount	Amount*1.1
 Parameter: [delete <field_list>]
 Used together with the [append] parameter, meaning deleting some unnecessary fields when copying the original table. Optional parameter; type is a set of field identifiers; parameter name cannot be omitted.
 > Example: delete the OrderDate from Order_example_table and append new columns, rename the Amount field to OriginalAmount, generate a new field using the expression (Amount*1.1), with an automatically generated name.
+NLC: derive append Amount as OriginalAmount, Amount*1.1; delete OrderDate
 Result:
 OrderID	Amount	OriginalAmount	Amount*1.1
 1	440	484	440	484

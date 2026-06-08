@@ -9,4 +9,4 @@ The field used for comparison. Optional parameter, default is whole-row comparis
 > Perform a whole-row comparison between the OldOrder_example_table and the NewOrder_example_table (this table), find records that are in NewOrder_example_table but not in OldOrder_example_table.
 NLC: set except; OldOrder_example_table
 > Merge the ADeptOrder_example_table (this table) and BDeptOrder_example_table, when the OrderID and Salesperson fields are duplicated, keep the records from ADeptOrder_example_table.
-NLC: set union; BDeptOrder_example_table; compare [OrderID, Salesperson]
+NLC: set union; BDeptOrder_example_table; compare OrderID, Salesperson

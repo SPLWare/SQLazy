@@ -27,7 +27,7 @@ When the **according** parameter is another table, this parameter can be used to
 Where sub-parameter **original_column_name** is a column name in the other table (including the row number column #) to be attached to the focus table. Required parameter; type is a column identifier; the parameter name must be omitted.
 Where sub-parameter **as** is the new name for the **original_column_name** after being attached to the focus table. Optional parameter, default is to keep the original name; type is a column identifier; the parameter name cannot be omitted.
 > Align the Dept field of the employee table (focus table) according to the primary key column (DeptID) of the department table, and attach the department_name and manager fields from the department table, where manager is renamed to manager_name.
-NLC: align Dept; department_table; take department_name, manager as manager_name.
+NLC: align Dept; according department_table; take department_name, manager as manager_name.
  
 Parameter: **sort_only**
 If the **according** parameter contains field values not present in the focus table, by default, missing records should be inserted at the corresponding positions. This parameter is a modification of that default rule, i.e., when this parameter is used, no missing records are inserted. Optional parameter; boolean type; the parameter name cannot be omitted, and the parameter value must be omitted.
