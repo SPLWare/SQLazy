@@ -11,7 +11,7 @@ The interval when generating the ordered set, default is 1, i.e., generate seque
 > Example: generate ordered set [3,5,7]
 NCL: list from 3, to 7; step 2
 Parameter: **unit**
-When parameters **from** and **to** are time (date, datetime), this parameter should be used to specify the unit of **step**. Optional parameter; enum type, enum values are year, quarter, month, day, hour, minute, second; parameter name must be omitted, parameter value cannot be omitted.
+When parameters **from** and **to** are time (date, datetime), this parameter should be used to specify the unit of **step**. Optional parameter; enum type, enum values are year, quarter, month, week, day, hour, minute, second; parameter name must be omitted, parameter value cannot be omitted.
 > Example: generate ordered set [2021-01-03, 2021-01-05, 2021-03-07]
 NLC: list from 2021-01-03, to 2021-01-07; step 2; day
 Different time units result in different intervals between members of the ordered set.
