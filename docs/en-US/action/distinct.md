@@ -1,8 +1,8 @@
-### Action: distinct
+﻿### Action: distinct
 Description: Based on one or more specified columns, keep unique records. Optionally delete records with duplicates, delete non-duplicate records.
 Syntax: <column> <option> [partition <partition_field>]
 Parameter: **column**
-One or more columns used to determine duplicates. Required parameter, when absent means the parameter value is the focus column in the context; type is identifier or set of identifiers; parameter name must be omitted.
+One or more columns used to determine duplicates. Required parameter; type is identifier or set of identifiers; parameter name must be omitted.
 Parameter: **option**
 Three ways of deduplication. Optional parameter; enum type; parameter name must be omitted, parameter value cannot be omitted. Enum values are as follows:
 keep_unique: default value, when N records are duplicates, remove the 2nd to Nth records, keep only the 1st.

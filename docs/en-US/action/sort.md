@@ -1,8 +1,8 @@
-### Action: sort
+﻿### Action: sort
 **Focus Table**
 Syntax: {<expression> [direction]}  [null] [language]
 Parameter: **expression**
-The expression to sort by, the simplest expression is a single field. Required parameter; type is expression; parameter name must be omitted, when the parameter value is omitted, it means the parameter value is the focus column in the context. Generally used in pairs with the "direction" parameter, meaning sorting a field in a certain direction, supporting multiple such pairs, which means sorting by multiple fields in sequence. This parameter does not support cross-row calculation and aggregation calculation, i.e., the expression cannot contain relative position calculations like F[i], F[a:b], nor aggregate calculations like sum, average of a set.
+The expression to sort by, the simplest expression is a single field. Required parameter; type is expression; parameter name must be omitted. Generally used in pairs with the "direction" parameter, meaning sorting a field in a certain direction, supporting multiple such pairs, which means sorting by multiple fields in sequence. This parameter does not support cross-row calculation and aggregation calculation, i.e., the expression cannot contain relative position calculations like F[i], F[a:b], nor aggregate calculations like sum, average of a set.
 Parameter: **direction**
 The direction of sorting. Optional parameter; enum type, enum values are (asc|small_to_large)|(desc|large_to_small); parameter name must be omitted, the default parameter value is asc|small_to_large. Note, must be used together with the "expression" parameter.
 > Example: sort Order_example_table by ClientID ascending, Amount descending.

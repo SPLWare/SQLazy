@@ -1,7 +1,7 @@
-### Action: key
+﻿### Action: key
 Syntax: [<key>] [time] [index]
 Parameter: [<key>] 
-Set one or more columns as the primary key. Required parameter, when omitted, it means using the focus column in the context as the primary key; field or set of fields type; parameter name must be omitted.
+Set one or more columns as the primary key. Required parameter; field or set of fields type; parameter name must be omitted.
 > Example: set the primary key on Order_example_table.
 NLC: key OrderID
 Parameter: **time**
