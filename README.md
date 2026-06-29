@@ -360,11 +360,11 @@ Complex summarization patterns that require stateful calculations across rows.
 * Step-by-step natural language → SQL
 * Step debugging
 * Cross-database SQL generation
-* MySQL / PostgreSQL / Oracle support
+* MySQL / PostgreSQL / Oracle / Snowflake / BigQuery support
 
 ### Coming soon
 
-* Snowflake / BigQuery support
+* MS SQL Server / DuckDB support
 * Recursive queries
 * Fully automatic workflow generation from plain English
 
