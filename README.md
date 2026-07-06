@@ -522,9 +522,9 @@ This repository contains documentation, example code, and AI‑oriented SKILLs t
 
 The actual software product — including the web‑based https://sqlazy.com and the downloadable IDE installation package — is not open‑source. All rights to the product are reserved by the author(s).
 
-    * The https://sqlazy.com is completely free to use and requires no login or registration of any kind.
+- The https://sqlazy.com is completely free to use and requires no login or registration of any kind.
 
-    * The IDE installation packages are also free to use, but subject to certain conditions. Please refer to the README (section on installation packages) for full details.
+- The IDE installation packages are also free to use, but subject to certain conditions. Please refer to the README (section on installation packages) for full details.
 
 No source code for the product is provided, and redistribution, reverse engineering, or commercial exploitation of the product binaries or hosted service is prohibited unless explicitly permitted in writing.
 
