@@ -518,12 +518,17 @@ These features are planned for upcoming releases.
 
 ## License
 
-This repository contains **documentation and example workflows only**.
+This repository contains documentation, example code, and AI‑oriented SKILLs that are open‑source and distributed under the MIT License. You are free to use, modify, and distribute these materials in accordance with the MIT terms.
 
-The SQLazy application (Web App and Desktop IDE) is proprietary software and is **not included** in this repository.
+The actual software product — including the web‑based https://sqlazy.com and the downloadable IDE installation package — is not open‑source. All rights to the product are reserved by the author(s).
 
-All files inside the `/examples` directory are released under the MIT License.  
-See the [LICENSE](LICENSE) file for details.
+    * The https://sqlazy.com is completely free to use and requires no login or registration of any kind.
+
+    * The IDE installation packages are also free to use, but subject to certain conditions. Please refer to the README (section on installation packages) for full details.
+
+No source code for the product is provided, and redistribution, reverse engineering, or commercial exploitation of the product binaries or hosted service is prohibited unless explicitly permitted in writing.
+
+By using this repository, you agree that the open‑source MIT terms apply only to the documentation, examples, and SKILLs, and not to the product itself.
 
 ---
 
