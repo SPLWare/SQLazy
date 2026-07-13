@@ -364,7 +364,7 @@ Complex summarization patterns that require stateful calculations across rows.
 
 ### Coming soon
 
-* Spark SQL / ClickHouse support
+* Spark SQL / Hive support
 * Recursive queries
 * Fully automatic workflow generation from plain English
 
