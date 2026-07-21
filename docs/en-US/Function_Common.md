@@ -14,10 +14,12 @@ An Action may contain zero, one, or multiple expressions. For example, the above
 
 An expression may contain zero, one, or multiple potentially non-standard functions. For example, the expression "OrderID" has no function, while the expression "((if((OrderDate newExampled) between 2021-01-01 2021-03-03) then 10)+100)" has 3 potentially non-standard functions. You need to analyze each expression based on the function definitions, identify each non-standard function (including function name, call syntax, parameter positions), and convert them into canonical functions: i.e., if, newExampled, between. Then, you should replace the non-standard functions with canonical ones and output the canonical NLC code. For example, after processing, the above Action becomes: "special_processing OrderID name OrderID , ((if((OrderDate newExampled) between 2021-01-01 2021-03-03), then 10)+100)"
 
-Note: This prompt only focuses on expressions and Functions. The definition of Actions is provided to help you distinguish between Actions and Functions. Do not confuse them. 1. A Function is part of an expression, and an expression is part of an Action. 2. Some enumerated values of enumerated parameters of Actions are similar or identical to Functions. For example, some enumerated parameter values of Actions are aggregation algorithms such as count, average, max, first, etc., while Functions also have aggregate functions such as count, avg, max, first, etc. However, they are fundamentally different: the aggregation algorithms in the enumerated values of Action parameters have no parameters, whereas aggregate functions always have parameters.
+Note: This prompt only focuses on expressions and Functions. The definition of Actions is provided to help you distinguish between Actions and Functions. Do not confuse them.
+1. A Function is part of an expression, and an expression is part of an Action.
+2. Some enumerated values of enumerated parameters of Actions are similar or identical to Functions. For example, the compute, rank, and summarize actions have enumeration values of aggregation algorithms such as count, avg, max, first, etc., and some aggregate function names are the same as these enum parameter values (or the same after Chinese-to-English translation), such as count, avg, max, first, etc. Despite the same names, they are fundamentally different: an Action enum parameter value is itself a parameter value and cannot have its own parameters, while an aggregate function is a function and must **have parameters**. Note the example below:
 
 > NLC: Action1 (max(Amount_quantity)+1) max
-In the above code, "Action1" is the action name (this action does not actually exist; it is just an example), "max" is the enumerated value of the enumerated parameter of this action, "(...)" parentheses indicate an expression, i.e., max(Amount1, Amount2)+1 is an expression; max(Amount1, Amount2) represents the aggregate function max and its parameters Amount1 and Amount2.
+In the above code, "Action1" is the action name (this action does not actually exist; it is just an example), and "max" is the enum parameter value of this action, not a function, because it is itself a parameter and has no parameters of its own; "(...)" parentheses indicate an expression, i.e., max(Amount1, Amount2)+1 is an expression; max(Amount1, Amount2) represents the aggregate function max and its parameters Amount1 and Amount2. Here, max is an aggregate function rather than an enum parameter value because it **has parameters** and parentheses outside the parameters. Note the key distinction method: whether there are parameters and parentheses outside the parameters; aggregate functions always take the form "function_name(parameters...)". You must distinguish correctly and not mistake enum parameter values for functions.
 
 This prompt only handles the Function/expression part, while an Action is definitely not a Function. Do not process the Action/non-expression part.
 
@@ -101,6 +103,7 @@ OrderID ClientID SellerId Amount OrderDate
 5 DSG 15 1444.8 2022-01-15
 6 JFE 10 2022-01-19
 F[a:b] F is a field name, a and b are interval bounds. F[a:b] represents an ordered set consisting of values of field F in the current table from row a to row b relative to the current row. F[i] can be seen as a special case of F[a:b] (a single-point interval).
+
 [#i:#j] Both #i and #j denote accessing fields by index. [#i:#j] represents an ordered set consisting of the i-th to j-th fields in the current row of the current table.
 
 ### Function Definitions
