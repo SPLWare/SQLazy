@@ -364,7 +364,7 @@ Complex summarization patterns that require stateful calculations across rows.
 
 ### Coming soon
 
-* Spark SQL / DORIS support
+* Spark SQL / ClickHouse / DORIS support
 * Recursive queries
 * Fully automatic workflow generation from plain English
 
