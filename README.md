@@ -360,7 +360,7 @@ Complex summarization patterns that require stateful calculations across rows.
 * Step-by-step natural language → SQL
 * Step debugging
 * Cross-database SQL generation
-* MySQL / PostgreSQL / Oracle / Snowflake / BigQuery / MS SQL Server / DuckDB / Hive / Spark SQL / DAMENG support
+* MySQL / PostgreSQL / Oracle / Snowflake / BigQuery / MS SQL Server / DuckDB / Hive / SparkSQL / DAMENG support
 
 ### Coming soon
 
