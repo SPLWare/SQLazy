@@ -1,4 +1,4 @@
-### Action: rank	
+﻿### Action: rank	
 Note that this action does not change the record order, nor does it return sorted records.
 Syntax: {<rank_by> [direction]} [option] [as <new_column_name_for_rank>] [filter] <filter_count> [delete] [partition <partition_field>]
 Parameter: **<rank_by>**  **[direction]**
@@ -14,12 +14,14 @@ When the rank needs to be written into a new column, this parameter should be us
 NLC: rank as RowField
 
 Parameter: **option**
-When encountering duplicate values, there are several rules to differentiate whether the ranks are duplicated, and whether they occupy the ranks of new values. Required parameter, default value is American; type is enum; parameter name must be omitted, parameter value cannot be omitted. The enum values are as follows:
--	natural: no duplicate ranks, the standard ranking of [10,10,20,25,30,30] is [1,2,3,4,5,6]. The top 4 are [10,10,20,25]
--	usa: duplicate values share the same rank, but occupy the ranks of new values; the American ranking of [10,10,20,25,30,30] is [1,1,3,4,5,5]. The top 4 are [10,10,20,25]
--	position: duplicate values share the same rank, and do not occupy the ranks of new values; the Chinese ranking of [10,10,20,25,30,30] is [1,1,2,3,4,4]. The top 4 are [10,10,20,25,30,30].
+When encountering duplicate values, there are several rules to differentiate whether the ranks are duplicated, and whether they occupy the ranks of new values. Required parameter; type is enum; parameter name must be omitted, parameter value cannot be omitted; when absent, it means the default ranking rule. The enum values are as follows:
+-	position: no duplicate ranks, the standard ranking of [10,10,20,25,30,30] is [1,2,3,4,5,6]. The top 4 are [10,10,20,25]
+-	default ranking rule (when absent): duplicate values share the same rank, but occupy the ranks of new values; the default ranking of [10,10,20,25,30,30] is [1,1,3,4,5,5]. The top 4 are [10,10,20,25]
+-	dense: duplicate values share the same rank, and do not occupy the ranks of new values; the dense ranking of [10,10,20,25,30,30] is [1,1,2,3,4,4]. The top 4 are [10,10,20,25,30,30].
 > Rank by OrderAmount, Chinese rule, name it AmountRank.
-NLC:rank OrderAmount; as AmountRank; usa
+NLC:rank OrderAmount; as AmountRank; dense
+> Rank by OrderAmount, name it AmountRank.	//Default rule
+NLC:rank OrderAmount; as AmountRank;
 
 Parameter: **filter** **filter_count**
 These two parameters are usually used together, meaning filtering the ranking result to return only partial records, i.e., top N, bottom N, the maximum one, the minimum one.
@@ -30,13 +32,13 @@ Where, parameter **filter_count** is the number of ranks (for top/bottom) or the
 > Focus table ranked by OrderAmount, retrieve all records corresponding to the maximum value
 NLC:rank OrderAmount; max			
 > Focus table ranked by OrderAmount, retrieve the record corresponding to the 1st place
-NLC: rank OrderAmount; top		//Default rule (option) is American.
+NLC: rank OrderAmount; top	1	//Default ranking (option).
 > Focus table ranked by OrderAmount in reverse order, using Chinese rule, retrieve the records corresponding to the top 10.
-NLC: rank OrderAmount; desc; position; top; 10
+NLC: rank OrderAmount; desc; dense; top; 10
 Parameter: **[delete]**
 When using the **filter** parameter, the default is to select records that meet the condition based on ranking. If this parameter is used, it means deleting the records that meet the condition based on ranking. Optional parameter; type is boolean; parameter name cannot be omitted, parameter value must be omitted.
 > Focus table ranked by OrderAmount in reverse order, using Chinese rule, delete the records corresponding to the top 10.
-NLC: rank OrderAmount; desc; position; top; 10; delete
+NLC: rank OrderAmount; desc; dense; top; 10; delete
 
 Parameter: **partition**
 Rank by partition, partitions do not affect each other, conceptually similar to SQL's PARTITION BY. Optional parameter; identifier type; parameter name cannot be omitted, parameter value must be omitted.
