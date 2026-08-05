@@ -15,11 +15,11 @@ OrderID	ClientID	SellerId	Amount	OrderDate
 108	BDR	12	480.0	2024-04-03
 139	BDR	30	166.0	2024-10-11
 Parameter: **null**
-When sorting, you can choose to place null values at the front or back. Optional parameter, default determined by system configuration; enum type; parameter name must be omitted, parameter value cannot be omitted. Two enum values:
+When sorting, you can choose to place null values at the front or back. Optional parameter, default determined by system configuration; enum type; parameter name cannot be omitted, parameter value cannot be omitted. Two enum values:
 - first	 means placing null values first
 - last means placing null values last
 > Example: sort Order_example_table by ClientID, place null ClientID last
-NLC: sort ClientID; last
+NLC: sort ClientID; null last
 Parameter: **language** 
 Specify the language of the string in sorting. Optional parameter, default uses the local language when absent; string type; parameter name cannot be omitted.
 > Example: the field being sorted is in English.

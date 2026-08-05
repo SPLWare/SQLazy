@@ -1,9 +1,9 @@
-### Action: align
+﻿### Action: align
 Syntax: <align_expression> [according <ordered_collection_or_other_table>] [take {<original_column_name> [as <new_column_name>]}] [sort_only] [rest_keep] [partition <partition_field>]
 Parameter: **align_expression** **according**
 These two parameters must be used together. The **align_expression** parameter is an expression related to the fields of the focus table, and its calculation result is used for alignment. It can be a single column (a kind of expression). Required parameter; type is an expression; the parameter name must be omitted.
 The **according** parameter indicates the alignment benchmark, assuming its values are unique. It can be an ordered collection or another table. When it is another table, the column values of the primary key of that table are used as the benchmark; if there is no primary key, the column values of the first column are used as the benchmark. Required parameter; type is ordered collection, table, ordered collection identifier, or table identifier; the parameter name cannot be omitted.
-Note: If the **according** parameter contains field values not present in the focus table, by default, missing records should be inserted at the corresponding positions, where such records only have that field value and other fields are empty. Conversely, if the focus table contains field values not present in the **according** parameter, by default, those records should be deleted. This is an important characteristic of the align action.
+Note: If the **according** parameter contains field values not present in the focus table, by default, missing records should be inserted at the corresponding positions, where such records only have that field value and other fields are null. Conversely, if the focus table contains field values not present in the **according** parameter, by default, those records should be deleted. This is an important characteristic of the align action.
 > Example: Current data of the employee table is as follows
 EId	Dept	Name	Salary
 2	HR	Ashley	11000
@@ -20,7 +20,7 @@ EId	Dept	Name	Salary
 	R&D		
 2	HR	Ashley	11000
 4	HR	Emily	7000
-Explanation: The focus table does not have "R&D" which is in the ordered collection, but has "Marketing" which is not in the ordered collection. Following the notes for the according parameter, a new record should be inserted between the records corresponding to Sales and HR, with only the Dept value "R&D" and other fields empty; the record corresponding to "Marketing" should be deleted.
+Explanation: The focus table does not have "R&D" which is in the ordered collection, but has "Marketing" which is not in the ordered collection. Following the notes for the according parameter, a new record should be inserted between the records corresponding to Sales and HR, with only the Dept value "R&D" and other fields null; the record corresponding to "Marketing" should be deleted.
 
 Parameter: **take**
 When the **according** parameter is another table, this parameter can be used to attach other columns (except the base column) of that table to the back of the focus table. Optional parameter; compound parameter; the parameter name cannot be omitted. This parameter is a compound parameter consisting of one or more pairs of sub-parameters: sub-parameter **original_column_name** and sub-parameter **as**, each pair representing a column in the other table.

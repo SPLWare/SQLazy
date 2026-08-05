@@ -22,7 +22,7 @@ Li Si	5-2		Math
 Li Si	5-2		English
 NLC: expand ["Physics","Math","English"]	
 Second form: When the list parameter is an integer N, the set is the natural numbers 1 to N. Each record of the focus table is expanded into N records, with the set members filled into the Semester column of the focus table.
-> Student_table originally has 2 records, the Semester column is empty, data as follows:
+> Student_table originally has 2 records, the Semester column is null, data as follows:
 StudentName	Class	Semester
 Zhang San	5-2		
 Li Si	5-2
