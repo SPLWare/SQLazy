@@ -1,6 +1,6 @@
 # Global System Pre-prompt: SQLazy Knowledge Base Constraints
 ## Base Rules
-1. All your knowledge about SQLazy syntax, functions, and features shall be derived **only** from all md documents under the `function/` (Functions) and `action/` (Features) directories in the project root. **Do NOT fabricate any functions, features, or syntax that do not exist in the documentation**;
+1. All your knowledge about SQLazy syntax, functions, and features shall be derived **only** from all md documents under the `function/` (Functions) and `action/` (Actions) directories in the project root. **Do NOT fabricate any functions, features, or syntax that do not exist in the documentation**;
 2. The generated SQLazy code is for syntax reference only and must be copied to the SQLazy dedicated IDE for execution;
 3. Hand-written native SQL strings are not permitted. All operations must use only the SQLazy wrapper functions/features provided in the documentation.
 
@@ -129,59 +129,59 @@ Decompose the task into multiple sequential steps with clear data processing obj
 ## Step 3: Function/Feature Matching Plan
 Match the corresponding SQLazy function/feature for each operation step, specifying the rationale for selection and the referenced document examples.
 ## Step 4: Step-by-Step SQLazy Code Implementation
-Write code in segments following the breakdown order. The writing style and parameter passing must fully conform to the MD document examples, with step annotations included;
-The code **must** follow the `SQLazy Code Output Format Specification (.nspl Three-Column Tab Format)` below to ensure it can be directly copied into the SQLazy dedicated IDE for execution;
-Additionally, the Step 4 code **must** be written directly to the corresponding `.nspl` file in the `nspl/` directory of the workspace (file name should be named by task semantics, e.g., `009_per_minute_window_statistics.nspl`), with real tabs between columns. The conversation will still follow the four-step process for display, but the final deliverable shall be the `.nspl` file under `nspl/`.
+Write code in segments following the decomposition order. The writing style and parameter passing must fully align with the .md document examples, with step annotations included;
+The code **must** adopt the "SQLazy Code Output Format Specification (.nspl)" below, ensuring it can be directly copied into the SQLazy dedicated IDE for execution;
+Furthermore, the Step 4 code **must** be directly written to the corresponding `.nspl` file in the `nspl/` directory of the workspace (file named by task semantics, e.g., `009_MinuteWindowStats.nspl`). The four-step process is still displayed in the conversation, but the final delivery is based on the `.nspl` file under `nspl/`.
 
-# SQLazy Code Output Format Specification (.nspl Three-Column Tab Format)
-The generated Step 4 code must strictly follow the .nspl text format that can be directly run in the SQLazy IDE. The rules are as follows:
+# SQLazy Code Output Format Specification (.nspl)
+The generated Step 4 step-by-step code must strictly adopt the .nspl text format directly runnable in the SQLazy IDE. The rules are as follows:
 
-## 1. Three-Column Structure (Tab Separated)
-Each line = one step, consisting of three columns. **Columns must be separated by tabs (Tab)** (not spaces):
-- Column 1 "Naming": the name of the result table from this step (e.g., t1, t2…, or a custom meaningful name), for reference by subsequent steps;
-- Column 2 "Anchor (Focus Table)": the target table to be processed in this step; **can be empty** (leave blank — write nothing, not null). When empty, it defaults to the result table from the previous step;
-- Column 3 "Statement": the SQLazy feature statement for that step.
+## 1. Per-Line Format
+Each line is a step, represented as a string, with the format: `[<name>=][<anchor>:]<statement>`
+- **Name**: The name of the result table for this step (e.g., t1, t2…, or a custom meaningful name), for reference by subsequent steps; when the name is empty, `[<name>=]` may be omitted.
+- **Anchor**: The target table or table column to be processed in this step; if it is a table, the anchor is written as `[<table_name>:]`; if it is a table column, the anchor is written as `[<column_name@table_name>:]`; **it can be empty** (leave empty, i.e., do not write anything, not null, omit `[<anchor>:]`). When empty, it defaults to inheriting the result table from the previous step.
+- **Statement**: The SQLazy function statement for this step.
 
-Example (between each two columns below is a tab):
+Examples:
 ```
-t1	t_1742353802112	compute datetime(t; precise minute), as tm
-t2		sort t
+t1=t_1742353802112:compute datetime(t; precise minute), as tm
+t2=sort t
 ```
 
-## 2. Each Step Has Exactly One Feature
-Each line (each step) can contain only **one feature** (e.g., compute / summarize / align / list / derive / sort …); however, the statement **may nest multiple functions** (e.g., if(), datetime(), elapse). When multiple features are needed, they must be split into separate steps.
+## 2. Each Step Has Exactly One Function
+Each line (each step) can only contain **one function** (e.g., CalculatedColumn / Aggregate / Align / List / ExportTable / Sort …); however, **multiple functions can be nested** within the statement (e.g., Condition(), datetime(), Offset). When multiple functions are needed, they must be split into multiple steps.
 
-## 3. Cross-Step Value Reference: Naming.Field
-When referencing values produced by other steps, use the "Naming.Field" notation. Example: `list from t4.min_t to t4.max_t …` (references the min_t and max_t fields summarized from step t4).
+## 3. Cross-Step Reference: Name.Field
+When referencing values produced by other steps, use the "Name.Field" notation. Example: `List Head t4.min_t Tail t4.max_t …` (referencing the min_t and max_t fields aggregated from step t4).
 
 ## 4. Anchor = Focus Table
-The Anchor in Column 2 is the input table processed by the current step. Explicitly writing it allows cross-step specification of the processing target (e.g., writing t3 as the anchor for t6 means performing align on table t3). Leaving blank inherits the result from the previous step.
+The anchor in column 2 is the input table processed by the current step. Explicitly specifying it allows cross-step designation of the processing target (e.g., if the anchor of t6 is written as t3, it means performing Align operation on table t3). Leaving empty means inheriting the result from the previous step.
 
-## 5. No Line Break in Statements
+## 5. Statement No Line Breaks
 Each step's statement must be written on the same line. **Line breaks are strictly prohibited**.
 
 ## 6. Reserved Words as Names Require Single Quotes
-Reserved words such as min, max, end, start, date, inc, cum, sum, avg, count, etc., if used as naming/field names, must be enclosed in single quotes. Example: `max_v as 'max'`.
+Reserved words such as min, max, end, start, date, time, inc, cum, sum, avg, count, etc., if used as names/field names, must be wrapped in single quotes. Example: `max_v Named 'max'`.
 
-## 7. Names Must Be Unique
-Each step's naming must be unique and must not be repeated.
+## 7. Names Must Not Be Duplicated
+Each step's name must be unique and must not be repeated.
 
-## Complete Example (Per-Minute Window Statistics, tabs between columns)
+## Complete Example (Per-Minute Window Statistics)
 ```
-t1	t_1742353802112	compute datetime(t; precise minute), as tm
-t2		sort t
-t3		summarize v first as fv, v last as lv, v min as minv, v max sa maxv; group tm
-t4		summarize tm min as min_t, tm max as max_t
-t5		list from t4.min_t to t4.max_t step 1 minute
-t6	t3	align tm; according t5
-t7		compute if(lv isnull then end_value[-1] else lv), as end_value
-t8		compute if(end_value[-1] isnull then fv else end_value[-1]), as start_value; if(minv isnull then start_value else minv), as min_v; if(maxv isnull then start_value else minv), as max_v
-t9		derive tm as start, (tm elapse 1 minute) as end, start_value, end_value, min_v as 'min', max_v as 'max'
+t1=t_1742353802112:compute datetime(t; precise minute), as tm
+t2=sort t
+t3=summarize v first as fv, v last as lv, v min as minv, v max sa maxv; group tm
+t4=summarize tm min as min_t, tm max as max_t
+t5=list from t4.min_t to t4.max_t step 1 minute
+t6=t3:align tm; according t5
+t7=compute if(lv isnull then end_value[-1] else lv), as end_value
+t8=compute if(end_value[-1] isnull then fv else end_value[-1]), as start_value; if(minv isnull then start_value else minv), as min_v; if(maxv isnull then start_value else minv), as max_v
+t9=derive tm as start, (tm elapse 1 minute) as end, start_value, end_value, min_v as 'min', max_v as 'max'
 ```
 
 # Hard Constraints
-1. When requirements exceed the documentation coverage, immediately inform that they cannot be implemented;
-2. Code style and calling logic must match the examples in the bound MD documents. Self-invented syntax is prohibited;
-3. Step 4 code must strictly follow the `.nspl Three-Column Tab Format Specification` (three columns separated by tabs, single feature per step, cross-step references using Naming.Field, no line breaks in statements, reserved word names enclosed in single quotes);
-4. Step 4 code must be written to the corresponding `.nspl` file under the `nspl/` directory for delivery (with real tabs between columns). The conversation display is only supplementary;
-5. A note must be appended at the end: the code only supports execution in the SQLazy dedicated IDE and cannot be executed in this environment.
+1. When a requirement exceeds the documentation coverage scope, promptly notify that it cannot be implemented;
+2. Code style and call logic must match the examples in the bound .md documents. Creating new syntax is prohibited;
+3. Step 4 code must strictly follow the SQLazy code output format specification (per-line format, single function per step, cross-step using Name.Field, no line breaks in statements, reserved word names with single quotes);
+4. Step 4 code must be written to the corresponding `.nspl` file under the `nspl/` directory for delivery. Conversation display is for reference only;
+5. A note must be appended at the end: Code only supports execution in the SQLazy dedicated IDE and cannot be executed in this environment.
