@@ -87,7 +87,7 @@ The meaning of the above two paragraphs is that expressions other than the simpl
 Note that for the expressions you identify, you must never parse, analyze, or process their specific content at any time, especially do not parse functions within expressions.
 Sometimes the expression part and non-expression part in an action contain words with the same meaning, such as aggregate functions and aggregate enum values in action parameter values, both using words like maximum, minimum. In such cases, the normalized NLC must have two or more such identical words. For the non-expression part outside parentheses, you will convert/transform and it will contain this word (e.g., max); for the expression part inside parentheses, you follow the previous rule and copy verbatim, which also contains the same word (also max).
 > Example: Group the current table by the year field, find the maximum of the formula(param1 max), and sum the amounts
-NLC code: summarize (param1 max) max, Amount sum; group year
+NLC code: summarize max (param1 max), sum Amount; group year
 
 > Example, please use the formula (sum(1,3,5)) to calculate
 NLC: calculate (sum(1,3,5)). //Comment: the result is 9.

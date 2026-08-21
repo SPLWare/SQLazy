@@ -73,8 +73,8 @@ Parameter: **value <column_name>**
 After pivot, the values of the specified single column in the original table will become the values of the new columns; this single column is the value column. Required parameter; type is (column) identifier; parameter name cannot be omitted.
 > In the above NLC code: value Amount
 Parameter: **option**
-There are 6 significantly different calculation methods: first, sum, avg, max, min, inverse. Optional parameter, default parameter value is first; enum type; parameter name must be omitted.
-sum avg max min first: This is a set of aggregation algorithms, i.e., after row_to_column pivot, when a row of the title column corresponds to multiple values in the value column, a single value can be obtained through aggregation. This situation generally occurs because there are other unused columns in the original table besides the group column, title column, and value column.
+There are 7 significantly different calculation methods: first, sum, count, avg, max, min, inverse. Optional parameter, default parameter value is first; enum type; parameter name must be omitted.
+sum, count, avg, max, min, first: This is a set of aggregation algorithms, i.e., after row_to_column pivot, when a row of the title column corresponds to multiple values in the value column, a single value can be obtained through aggregation. This situation generally occurs because there are other unused columns in the original table besides the group column, title column, and value column.
 > For the earlier branch department budget table, group by Branch, perform row_to_column on the group data, State as the title column, Amount as the value column, take the maximum of Amount.
 Expected result:
 Branch	Florida	California	New York	Texas	Pennsylvania
@@ -92,6 +92,9 @@ branch2	20000		11000	10000	10000
 branch3				11000	10000
 NLC: pivot group Branch, Dept; name State; value Amount
 Explanation: first is the default parameter value for option, omitted in the above code.
+> For the earlier branch department budget table, group by Branch, perform row_to_column on the group data, State as the title column, Amount as the value column, count Amount.
+NLC: pivot group Branch, Dept; name State; value Amount; count
+Explanation: Each cell counts the number of records for that Branch and State (same aggregation branch as sum), to contrast with sum.
 inverse: The other calculation methods are all aggregation methods under the large category of **row_to_column**. This calculation method is not an aggregation method, but another operation mode (special operation mode/mode switch), it is **column_to_row**, the inverse operation of **row_to_column**. Specifically, it keeps the group columns unchanged, and performs **column_to_row** on the group data/other columns, where the titles of the other columns of the original table become the values of the new title column, and the column values of the other columns of the original table become the values of the new value column.
 > Below is the wide budget table, where Company and Dept are group columns.
 Company	Dept	Florida	California	New York	Texas	Pennsylvania
