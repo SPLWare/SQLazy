@@ -17,7 +17,7 @@ OrderID	Product	Salesperson	OrderAmount
 5	Apple	Zhang San	500
 6	Watermelon	Li Si	600
 Goal: remove duplicate records based on Product and Salesperson fields
-NLC: distinct	Product,Salesperson
+SQLazy: distinct	Product,Salesperson
 Result:
 OrderID	Product	Salesperson	OrderAmount
 1	Watermelon	Zhang San	100
@@ -25,13 +25,13 @@ OrderID	Product	Salesperson	OrderAmount
 6	Watermelon	Li Si	600
 
 > Based on the above supermarket order example table, delete records with duplicates based on Product and Salesperson fields.
-NLC: distinct	Product,Salesperson; kill_dups
+SQLazy: distinct	Product,Salesperson; kill_dups
 Result:
 OrderID	Product	Salesperson	OrderAmount
 6	Watermelon	Li Si	600
 
 > Based on the above supermarket order example table, delete non-duplicate records based on Product and Salesperson fields.
-NLC: distinct	Product,Salesperson; dups_only
+SQLazy: distinct	Product,Salesperson; dups_only
 
 Result:
 OrderID	Product	Salesperson	OrderAmount

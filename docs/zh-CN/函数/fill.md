@@ -4,4 +4,4 @@
 参数**<源字符串>**：必要参数；字符串类型；参数名已省略。
 参数**[复制次数]**：将<源字符串>复制的次数。必要参数；整数类型；参数名已省略。
 > 例子：将"a b"复制10次。
-NLC片段：fill("a b",10)		//结果"a ba ba ba ba ba ba ba ba ba b"
+SQLazy片段：fill("a b",10)		//结果"a ba ba ba ba ba ba ba ba ba b"

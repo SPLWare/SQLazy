@@ -16,7 +16,7 @@ Date	ClosePrice
 2021-01-07	11	
 2021-01-08	9.1
 Goal: fill the new field UpFlag with values; when the same UpFlag value appears for 2 or more consecutive records, it indicates a continuous rise; when it is 1, it indicates a drop or flat. Equivalent to using the segment action to fill the group number in the UpFlag field, targeting the ClosePrice column, with the fixed condition "down"
-NLC: segment ClosePrice; down; as UpFlag
+SQLazy: segment ClosePrice; down; as UpFlag
 Result:
 Date	ClosePrice	UpFlag
 2021-01-01	10.2	1
@@ -37,7 +37,7 @@ not_up: increment the group number when the parameter **expression_for_fixed_con
 down: increment the group number when the parameter **expression_for_fixed_condition** decreases.
 not_down: increment the group number when the parameter **expression_for_fixed_condition** does not decrease (unchanged or increased).
 > For the new column "Flag" of the focus table, fill in group numbers sequentially, incrementing the group number when the field Month does not change, and keeping the group number unchanged when Month changes.
-NLC: segment Month; unchanged; as Flag
+SQLazy: segment Month; unchanged; as Flag
 
 The second type, grouping by record count, note that the parameter **expression_for_fixed_condition** is not needed, but the parameter **count** is required. The parameter **fixed_condition_or_record_count** has 2 enum values as follows:
 groups: roughly divide the total number of records into M groups evenly; each group has the same group number. Because perfect division is not guaranteed, it is roughly even. For example, 10 records divided into 4 groups, the group numbers are [1,1,1,2,2,2,3,3,3,4]
@@ -52,7 +52,7 @@ Date	ClosePrice
 2021-01-07	11	3
 2021-01-08	9.1	4
 Goal: every 3 working days as a group, fill an incrementing group number into the new field "GroupNumber".
-NLC: segment step; 3; as GroupNumber
+SQLazy: segment step; 3; as GroupNumber
 Result:
 Date	ClosePrice	GroupNumber
 2021-01-01	10.2	1	1
@@ -68,14 +68,14 @@ Parameter: **condition <condition_expression>**
 When the first type of fixed conditions and the second type of grouping by record count are insufficient, the third type, any conditional expression, is needed to calculate segments. In this case, the first three parameters are not needed. Optional parameter; type is conditional expression; parameter name cannot be omitted. This parameter supports cross-row calculation and aggregation calculation, i.e., the expression can contain relative position calculations like F[i], F[a:b], and aggregate calculations like sum, average of a set.
 > A stock price table (focus table) already sorted by Date.
 Goal: create a new field "UpFlag" on the focus table and fill group numbers, starting from 1, increment the group number when the condition "ClosePrice<ClosePrice[-1]" is true, keep the group number unchanged when the condition is false.
-NLC: segment condition ClosePrice<ClosePrice[-1]; as UpFlag
+SQLazy: segment condition ClosePrice<ClosePrice[-1]; as UpFlag
 Analysis: The condition in this example is simple and can be replaced by fixed conditions, so it is equivalent to: segment ClosePrice; down; as UpFlag
 In particular, this parameter can be used to express "when a certain expression equals or does not equal a certain value, increment the group number".
 > Assign the new column "Number" of the focus table starting from 1, increment the number when the condition is "Month <> 3", otherwise keep the number unchanged.
-NLC: segment condition (Month <> 3); as Number
+SQLazy: segment condition (Month <> 3); as Number
 Parameter: **partition**
 Calculate segment numbers by partition, partitions do not affect each other, conceptually similar to SQL's PARTITION BY. Optional parameter; type is (field) identifier; parameter name cannot be omitted.
 Parameter: **as <new_column_name>**
 New column name, the group number will be assigned to this new column. Required parameter; type is (field) identifier; parameter name cannot be omitted.
 Goal: use the segment action to fill the group number into the new column "NewGroupNumber" of the focus table, with the condition "ClosePrice<ClosePrice[-1]"
-NLC: segment condition ClosePrice<ClosePrice[-1]; as NewGroupNumber
+SQLazy: segment condition ClosePrice<ClosePrice[-1]; as NewGroupNumber

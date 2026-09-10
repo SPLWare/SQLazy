@@ -19,8 +19,8 @@ When sorting, you can choose to place null values at the front or back. Optional
 - first	 means placing null values first
 - last means placing null values last
 > Example: sort Order_example_table by ClientID, place null ClientID last
-NLC: sort ClientID; null last
+SQLazy: sort ClientID; null last
 Parameter: **language** 
 Specify the language of the string in sorting. Optional parameter, default uses the local language when absent; string type; parameter name cannot be omitted.
 > Example: the field being sorted is in English.
-NLC: sort ClientID; language en  //Common languages also include zh (Chinese), ja_JP (Japanese), etc.
+SQLazy: sort ClientID; language en  //Common languages also include zh (Chinese), ja_JP (Japanese), etc.

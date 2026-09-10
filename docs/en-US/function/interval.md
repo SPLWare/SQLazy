@@ -4,7 +4,7 @@ Return: integer. Returns the interval between [from <start_time>] and [to <end_t
 Parameter **[from <start_time>]**: start time point. Required parameter; type is date, time, or datetime; parameter name must be omitted.
 Parameter **[to <end_time>]**: end time point. Required parameter; type is date, time, or datetime; parameter name must be omitted.
 > Example: Compute days between date 1980-02-27 and date 1983-02-27 00:00:45.
-NLC snippet: interval(1980-02-27, 1983-02-27 00:00:45) // result is 1097
+SQLazy snippet: interval(1980-02-27, 1983-02-27 00:00:45) // result is 1097
 Parameter **[unit]**: Default interval unit is day. Can be set to other units. Non-required parameter; enumeration type; enumeration values: year, quarter, month, week, day, hour, minute, second, sunday, monday; parameter name omitted.
 > Example: Compute whole years between 1980-02-27 and 1983-02-27 00:00:45.
-NLC snippet: interval(1980-02-27, 1983-02-27 00:00:45; year) // result is 3
+SQLazy snippet: interval(1980-02-27, 1983-02-27 00:00:45; year) // result is 3
