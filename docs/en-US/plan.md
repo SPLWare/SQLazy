@@ -12,7 +12,6 @@
 @./function/concat.md
 @./function/contain.md
 @./function/cos.md
-@./function/count.md
 @./function/date.md
 @./function/datetime.md
 @./function/day.md
@@ -24,7 +23,6 @@
 @./function/floor.md
 @./function/getsubs.md
 @./function/hour.md
-@./function/icount.md
 @./function/if.md
 @./function/ifn.md
 @./function/integer.md
@@ -101,7 +99,6 @@
 @./action/const.md
 @./action/derive.md
 @./action/distinct.md
-@./action/expand.md
 @./action/file.md
 @./action/filter.md
 @./action/join.md
