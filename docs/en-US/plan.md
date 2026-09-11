@@ -99,10 +99,9 @@
 @./action/const.md
 @./action/derive.md
 @./action/distinct.md
-@./action/file.md
+@./action/expand.md
 @./action/filter.md
 @./action/join.md
-@./action/key.md
 @./action/list.md
 @./action/match.md
 @./action/pivot.md
@@ -112,9 +111,7 @@
 @./action/sort.md
 @./action/SQL.md
 @./action/summarize.md
-@./action/table.md
 @./action/align.md
-@./action/array.md
 @./action/calculate.md
 
 # Mandatory Fixed Thinking & Output Process (order must not be reversed)
