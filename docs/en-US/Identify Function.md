@@ -30,7 +30,7 @@ Conditional expression (boolean expression) is a type of expression whose result
 This prompt focuses only on functions. The definition of expression is provided to help you distinguish between expressions and functions (functions are usually part of an expression) and points of confusion (an expression can consist of a single function).
 
 **Function**
-A fixed algorithm whose result is a simple data type is a Function. It may have zero, one, or multiple parameters, and may have an object parameter, like: (object function_name other_parameter1 other_parameter2 ...); or no object parameter, like: function_name(other_parameter1, other_parameter2). Function parameters can be expressions (including other functions). You only return the function name.
+A fixed algorithm whose result is a simple data type is a Function. It may have zero, one, or multiple parameters, and may have an object parameter, like: (object function_name other_parameter1 other_parameter2 ...); or no object parameter, like: function_name(other_parameter1, other_parameter2). Function parameters can be expressions (including other functions). If the end position of a function with multiple parameters cannot be determined, the entire function item may be wrapped in parentheses; recognize and preserve such parenthesized input verbatim. You only return the function name.
 
 
 Note: This prompt only focuses on expressions and functions. The definition of Actions is provided to help you distinguish between Actions and functions, do not confuse them.

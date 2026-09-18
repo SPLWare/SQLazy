@@ -46,7 +46,7 @@ The definition of expression is provided to help you distinguish between express
 #### Function
 
 A fixed algorithm whose result is a simple data type is a Function. The overall syntax of a function is:
-([object_parameter]<function_word>{<parameter_item>}) | [object_parameter]<function_word>[<parameter_value>] | <function_word>({<parameter_item>}) | <function_word>[<parameter_value>]
+([object_parameter]<function_word>{<parameter_item>}) | [object_parameter]<function_word>[<parameter_value>] | <function_word>({<parameter_item>}) | (<function_word>({<parameter_item>})) | <function_word>[<parameter_value>]
 Where parameter_item = <parameter_name> <parameter_value>; parameter_word is the parameter name.
 
 Depending on whether there is an object, it can be divided into several different rules:
@@ -57,7 +57,7 @@ Depending on whether there is an object, it can be divided into several differen
 - SQLazy fragment: (2020-02-15 elapse 5)              //1 non-object parameter with name "elapse"
 - SQLazy fragment: (2020-02-15 elapse 5 month)        //2 non-object parameters
 
-**Functions without an object parameter** have parameter parentheses. Function parentheses are optional, but for consistent output format, do not write them.
+**Functions without an object parameter** have parameter parentheses. Function parentheses are optional, but for consistent output format, do not write them. Exception: when the end position of a function with multiple parameters cannot be determined, the entire function item may be wrapped in parentheses (the parenthesized form in the overall syntax above; functions without an object parameter only). Outer parentheses already present in the user input must be recognized and preserved verbatim, never stripped; never add such parentheses proactively in normalized output. For functions with an object parameter, the outer parentheses of the first form already serve this purpose; no double parentheses occur.
 - SQLazy fragment: pi()                               //0 parameters
 - SQLazy fragment: number("32.5")                     //1 unnamed parameter
 - SQLazy fragment: date("1984-02-27")                 //1 unnamed parameter

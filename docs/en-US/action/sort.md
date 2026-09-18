@@ -1,6 +1,6 @@
 ﻿### Action: sort
 **Focus Table**
-Syntax: {<expression> [direction]}  [null] [language]
+Syntax: {<expression> [direction]}  [null]
 Parameter: **expression**
 The expression to sort by, the simplest expression is a single field. Required parameter; type is expression; parameter name must be omitted. Generally used in pairs with the "direction" parameter, meaning sorting a field in a certain direction, supporting multiple such pairs, which means sorting by multiple fields in sequence. This parameter does not support cross-row calculation and aggregation calculation, i.e., the expression cannot contain relative position calculations like F[i], F[a:b], nor aggregate calculations like sum, average of a set.
 Parameter: **direction**
@@ -20,7 +20,3 @@ When sorting, you can choose to place null values at the front or back. Optional
 - last means placing null values last
 > Example: sort Order_example_table by ClientID, place null ClientID last
 SQLazy: sort ClientID; null last
-Parameter: **language** 
-Specify the language of the string in sorting. Optional parameter, default uses the local language when absent; string type; parameter name cannot be omitted.
-> Example: the field being sorted is in English.
-SQLazy: sort ClientID; language en  //Common languages also include zh (Chinese), ja_JP (Japanese), etc.

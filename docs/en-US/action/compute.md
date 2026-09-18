@@ -1,9 +1,9 @@
 ﻿### Action: compute
-Syntax: {[summary] <formula> [with] [cross] [as <new_column_name>]} [partition]
+Syntax: {[summary] <formula> [with] [cross] [yoy] [as <new_column_name>]} [partition]
 Key Rules
 -	The parameters [summary] and [cross] are mutually exclusive, only one can be chosen, cannot appear together.
 -	When <formula> is of the relative interval F[a:b] form (a != b), the value is a set, and this parameter must be used (the parameter [cross] cannot be used); when <formula> is not of the relative interval form, this parameter is not mandatory (i.e., choose one between this parameter and [cross]).
--	{} indicates that it can be repeated multiple times. In the syntax of this action, it specifically means multiple computed columns can be created, each with its own set of parameters [summary] <formula> [with] [cross] [as <new_column_name>]. Different computed columns and <partition> are separated by semicolons.
+-	{} indicates that it can be repeated multiple times. In the syntax of this action, it specifically means multiple computed columns can be created, each with its own set of parameters [summary] <formula> [with] [cross] [yoy] [as <new_column_name>]. Different computed columns and <partition> are separated by semicolons.
 -	The parameter structure corresponds to the table-type parameter [compute]: when field names are omitted, the field order follows the same rule as the parameter order, matching by type and agreed order (corresponding to spec L96 new sentence).
 Parameter: **[summary]** 
 **[summary]** is to continue with an aggregation calculation based on the parameter <formula>. Within the same partition, non-relative-interval (non-set) aggregation produces the same result for each row; relative-interval (set) aggregation usually produces different results per row. Without the partition parameter, it can be considered as having only one partition. Note that any <formula> can use this parameter; when <formula> is of the relative interval F[a:b] form (a != b), the value is a set, and this parameter must be used (the parameter [cross] cannot be used), e.g., OrderAmount[-2:1], which represents the set of OrderAmount from the 2nd record before the current position to the 1st record after, a total of 4 records; when the <formula> is not of the relative interval form, this parameter is not mandatory (i.e., choose one between this parameter and [cross]), e.g., OrderAmount, OrderAmount*0.1, UnitPrice*Quantity. Optional parameter; enum type; parameter name must be omitted, parameter value cannot be omitted. The explanations of the enum values are as follows:
@@ -49,6 +49,7 @@ Parameter: **[cross]**  Performs cross-row calculation based on the parameter <f
 proportion: understood by common sense.
 inc, inc_ratio: inc_ratio is the growth ratio of the current item compared to the previous item, value/value[-1]-1.
 cum, cum_proportion: cum_proportion is the proportion of the current cumulative value to the total sum.
+yoy, yoy_growth: yoy compares the current item with the 12th previous item (by month) or the 4th previous item (by quarter); yoy_growth is the corresponding growth rate. Which previous item to compare with is determined by the parameter [yoy], defaulting to month.
 > Example: calculate the proportion of each customer's order amount to the total amount of that customer in Order_example_table.
 SQLazy: compute Amount, proportion, as AmountProportion; partition ClientID
 Partial results:
@@ -65,6 +66,40 @@ OrderID	ClientID	SellerId	Amount	OrderDate	AmountProportion
 137	BSF	18	2222.4	2024-09-26	0.15439766569403918
 > Example: create multiple computed columns, newField1 is the proportion of each customer's order amount to the total amount of that customer, newField2 is the average of each customer's order amount.
 SQLazy: compute Amount, proportion, as newField1; avg, Amount, as newField2; partition ClientID
+Parameter: **[yoy]**  Whether the period-over-period calculation compares with the 12th previous item or the 4th previous item. Optional parameter, defaulting to month; enum type with values month and quarter; parameter name must be omitted, parameter value cannot be omitted. Note, this parameter only works together with the parameter [cross] taking the value yoy or yoy_growth.
+> Example: the Monthly_example_table below contains 14 consecutive months of amounts. Calculate yoy by month and name it YoYRatio. Rows without a 12th previous item yield empty results.
+Month	Amount
+2023-01	100
+2023-02	120
+2023-03	100
+2023-04	120
+2023-05	200
+2023-06	240
+2023-07	200
+2023-08	240
+2023-09	200
+2023-10	240
+2023-11	200
+2023-12	240
+2024-01	300
+2024-02	360
+SQLazy: compute Amount, yoy, month, as YoYRatio
+Partial results:
+Month	Amount	YoYRatio
+2023-11	200
+2023-12	240
+2024-01	300	3.0
+2024-02	360	3.0
+> Example: using the table above, calculate yoy_growth by quarter and name it YoYGrowth. Rows without a 4th previous item yield empty results.
+SQLazy: compute Amount, yoy_growth, quarter, as YoYGrowth
+Partial results:
+Month	Amount	YoYGrowth
+2023-01	100
+2023-02	120
+2023-03	100
+2023-04	120
+2023-05	200	1.0
+2023-06	240	1.0
 Parameter: **[as <new_column_name>]**
 The new column name created for the computed column. Required parameter; type is column identifier; parameter name cannot be omitted. Note: the new column name should not duplicate the original name, otherwise there will be two identical names, causing confusion in subsequent references.
 Parameter: **[partition]**
