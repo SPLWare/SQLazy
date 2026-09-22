@@ -74,7 +74,7 @@ Parameter: **start**
 
 Which rows to start from. Required parameter; type is condition expression; the parameter name cannot be omitted. You write a condition expression, and the rows satisfying it are the start rows; the start rows themselves also appear in the result (counted as level 1).
 
-There can be only one start row, or several; a start row can be the root (the row with no manager), or any row in the middle of the tree.
+There can be only one start row, or several; a start row can be the root (the row with no manager), or any row in the middle of the tree. When there are several start rows, they are processed one by one in the original order of the focus table; each start row brings out the rows it finds, and duplicate rows are kept (when searching upward, each start row brings out its whole chain up to the root, see the example below).
 
 > Example: Starting from Linda, search downward for her and all of her subordinates.
 
@@ -101,14 +101,16 @@ Result:
 ```
 Name
 David
+Michael
 Emily
+David
+Michael
 Matthew
-Michael
-Michael
+David
 Michael
 ```
 
-Explanation: The condition "Dept='Tech Dept'" selects three rows at once (David, Emily and Matthew); these three rows are all start rows, all at level 1. Searching one level further up, their managers are all Michael, so Michael is level 2. When there are several start rows, this action no longer removes duplicate rows; a row is brought out once for each start row that finds it, so Michael appears 3 times in the result.
+Explanation: The condition "Dept='Tech Dept'" selects three rows at once (David, Emily and Matthew); these three rows are all start rows, all at level 1. When there are several start rows, each start row in turn brings out its whole chain up to the root: David's manager is Michael; Emily's manager is David, and David's manager is Michael; Matthew's manager is David, and David's manager is Michael. This action no longer removes duplicate rows, so David appears 3 times (once as a start row, twice as a manager) and Michael appears 3 times (all as a manager).
 
 Parameter: **take**
 
