@@ -104,9 +104,11 @@ David
 Emily
 Matthew
 Michael
+Michael
+Michael
 ```
 
-Explanation: The condition "Dept='Tech Dept'" selects three rows at once (David, Emily and Matthew); these three rows are all start rows, all at level 1. Searching one level further up, their managers are all Michael, so Michael is level 2. When there are several start rows, this action removes duplicate rows automatically, so Michael appears only once.
+Explanation: The condition "Dept='Tech Dept'" selects three rows at once (David, Emily and Matthew); these three rows are all start rows, all at level 1. Searching one level further up, their managers are all Michael, so Michael is level 2. When there are several start rows, this action no longer removes duplicate rows; a row is brought out once for each start row that finds it, so Michael appears 3 times in the result.
 
 Parameter: **take**
 
@@ -343,11 +345,11 @@ Kevin	4
 
 Parameter: **condition**
 
-Filters the result additionally, keeping only the rows that satisfy this condition. Optional parameter; type is condition expression; the parameter name cannot be omitted.
+Filters the result except the start rows additionally, keeping only the rows that satisfy this condition. Optional parameter; type is condition expression; the parameter name cannot be omitted.
 
-Note, this parameter only removes the rows that do not satisfy the condition from the result; it does not affect this action's continuing to search the next level.
+Note, this parameter only removes the rows other than the start rows that do not satisfy the condition from the result; it does not affect this action's continuing to search the next level.
 
-> Example: Starting from Michael, search downward for all records, and keep only those with a salary of at least 8000 in the result.
+> Example: Starting from Michael, search downward for all records; except Michael himself, keep only those with a salary of at least 8000 in the result.
 
 SQLazy: recurse down start (ManagerId isnull) take Name, Salary condition (Salary>=8000) parent ManagerId
 
@@ -363,7 +365,7 @@ Rachel	8000
 Emily	12000
 ```
 
-> Example: Starting from Michael, search downward for all records, and keep only those in the Sales Dept in the result.
+> Example: Starting from Michael, search downward for all records; except Michael himself, keep only those in the Sales Dept in the result.
 
 SQLazy: recurse down start (ManagerId isnull) take Name, Dept condition (Dept="Sales Dept") parent ManagerId
 
@@ -371,10 +373,11 @@ Result:
 
 ```
 Name	Dept
+Michael	General Manager Office
 Linda	Sales Dept
 Ashley	Sales Dept
 Rachel	Sales Dept
 Kevin	Sales Dept
 ```
 
-Explanation: Michael is in the General Manager Office, so he is removed by the condition as well; but his subordinates Linda and David are still searched downward as usual, so the records of Linda's branch still appear in the result. This shows that the **condition** parameter only filters the result and does not affect searching further down.
+Explanation: Michael is in the General Manager Office and does not satisfy the "Sales Dept" condition, but he is the start row, so he is still kept in the result; his subordinates Linda and David are still searched downward as usual, so the records of Linda's branch still appear in the result. This shows that the **condition** parameter only removes records other than the start rows, and does not affect searching further down.
