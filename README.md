@@ -115,13 +115,13 @@ Instead of writing one large SQL statement, the logic is expressed as a step-by-
 
 Each step represents a single transformation.
 
-| Variable | Anchor | Statement |
-|---|---|---|
-| t1 | stock | filter CODE = 100046 |
-| t2 |  | sort DT asc |
-| t3 |  | segment CL down as NoRisingDays |
-| t4 |  | summarize DT count as ContinuousDays group NoRisingDays |
-| |  | summarize ContinuousDays max as max_ContinuousDays |
+```text
+stock:filter CODE = 100046
+sort DT asc
+segment CL down as NoRisingDays
+summarize DT count as ContinuousDays group NoRisingDays
+summarize ContinuousDays max as max_ContinuousDays
+```
 
 This workflow is easy to read and easy to review.  
 Each step does only **one simple thing**.
