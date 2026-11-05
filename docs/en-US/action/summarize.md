@@ -1,17 +1,20 @@
 ﻿### Action: summarize
+
+When the whole set has only one item, a single-value variable can be generated and referenced directly afterwards; when compiling to SQL, WITH is no longer needed.
+
 #### Mode Determination (Highest Priority, Must Execute First)
 Summarize has two mutually exclusive aggregation modes: 1. single aggregation 2. double aggregation
 Single aggregation means: a summary column (a set of summary parameters) executes only one value aggregation algorithm, i.e., an aggregation algorithm that reduces multiple records to a single value, specifically: first, last, sum, max, min, count, icount, avg, concat. Syntax: [summarize {[value_aggregation_algorithm] [<aggregated_expression>] [with] [condition <filter_condition>] [as <new_column_name>]}] [group {[<group_expression>] [as <new_column_name>]}]
 Double aggregation means: a summary column (a set of summary parameters) needs to perform two aggregations. The first is a record aggregation algorithm, which reduces multiple records to one record or multiple records with the same value, specifically: argmax, argmin. For example, the record with the maximum order amount; when the maximum value is not repeated, the result is one record; when the maximum value is repeated, the result is multiple records. After the first aggregation algorithm, the second value aggregation algorithm (the aggregation algorithm that reduces multiple records to a single value) must be immediately executed to get the final result. For instance, the first aggregation finds multiple records with the maximum order amount, and the second aggregation calculates the sum of amounts from these records; the complete algorithm is to find the sum of amounts of the records with the maximum order amount. SQLazy's double aggregation is similar to SQL's KEEP function. Syntax: [summarize {[record_aggregation_algorithm] [<aggregated_expression>] [value_aggregation_algorithm] [<aggregated_expression>] [with] [condition <filter_condition>] [as <new_column_name>]}] [group {[<group_expression>] [as <new_column_name>]}]
 Determination Rules (Must Execute Strictly):
 If the aggregation calculation expressed by the natural language includes: argmax, argmin
-�� must use double aggregation.
+→ must use double aggregation.
 Conversely, if the aggregation calculation expressed by the natural language does not include: argmax, argmin, but only: first, last, sum, max, min, count, icount, avg, concat.
-�� must use single aggregation
+→ must use single aggregation
 If both appear or semantics conflict:
-�� output error, guessing is not allowed
+→ output error, guessing is not allowed
 If argmax or argmin is not explicitly expressed:
-�� default to single aggregation.
+→ default to single aggregation.
 #### Parameter Structure Description
 > Structural note: Summary/group both correspond to table-type parameters; when field names are omitted, field order follows the same rule as parameter order, matching by type and agreed order (corresponding to spec L96 new sentence); [aggr] before [item].
 The parameters of this action are composed of two parts: summary and group. The summary part's parameter name is "summary", must be omitted. It consists of one or more sets of identically structured parameters, each set representing a summary column. For single aggregation, one set of parameters is composed of 5 parameters: [value_aggregation_algorithm] [<aggregated_expression>] [with] [condition <filter_condition>] [as <new_column_name>]; for double aggregation, one set of parameters is composed of 7 parameters: [record_aggregation_algorithm] [<aggregated_expression>] [value_aggregation_algorithm] [<aggregated_expression>] [with] [condition <filter_condition>] [as <new_column_name>]. The group part's parameter name is "group", cannot be omitted, and also consists of one or more sets of identically structured parameters, each set representing a group column, composed of 2 parameters: [<group_expression>] [as <new_column_name>]. First, explain the summary part parameters.
