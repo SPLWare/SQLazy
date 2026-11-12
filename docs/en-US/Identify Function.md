@@ -119,6 +119,7 @@ In the above code, "Action1" is the action name (this action does not actually e
 **replace** Replace a specified substring in a string with another substring.
 **trim** Remove whitespace from both sides of a string.
 **pad** Repeatedly prepend (or optionally append) a specified substring to a string until the total length reaches a specified value.
+**split** Split a string by a delimiter and return the specified segment.
 **fill** Copy a string N times to form a large concatenated string.
 **concat** Concatenate multiple parameters into a large string using a delimiter; parameter types can differ.
 **ymonth** Extract the year and month from a date type, returning year*100 + month.

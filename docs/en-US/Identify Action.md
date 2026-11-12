@@ -44,7 +44,7 @@ Condition (conditional expression, boolean expression) is a type of expression, 
 
 **filter**: Filter out or keep records of the focus table according to a conditional expression.
 
-**distinct**: Based on one or more specified columns, keep unique records of the focus table, i.e., when N records are duplicates, remove the 2nd to Nth records. Optionally, delete records with duplicates, equivalent to keeping only records that are singletons; optionally, delete non-duplicate records, i.e., delete all singleton records.
+**distinct**: Based on one or more specified columns, keep unique records of the focus table, i.e., when N records are duplicates, remove the 2nd to Nth records. By default only those columns and the partition columns are returned; write whole to return all columns of the original table. Optionally, delete records with duplicates, equivalent to keeping only records that are singletons; optionally, delete non-duplicate records, i.e., delete all singleton records.
 
 **join**: The right table associates with the left table (focus table) based on specified reference columns, and the specified columns are joined to the left table, forming a wider table. Supports left join, inner join, and full join.
 
