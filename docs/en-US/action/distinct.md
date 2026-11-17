@@ -4,10 +4,10 @@ Syntax: <column> <option> [whole] [partition <partition_field>]
 Parameter: **column**
 One or more columns used to determine duplicates. Required parameter; type is identifier or set of identifiers; parameter name must be omitted.
 Parameter: **option**
-Three ways of deduplication. Optional parameter; enum type; parameter name must be omitted, parameter value cannot be omitted. Enum values are as follows:
-keep_unique: default value, when N records are duplicates, remove the 2nd to Nth records, keep only the 1st.
+The deduplication method. Only 2 writable enumeration values: kill_dups, dups_only; there is also 1 default rule that cannot be written, i.e. keep_unique (it is not a SQLazy keyword and must never appear in the output). Optional parameter; enum type; the parameter name must be omitted, and when there is no corresponding enumeration value the parameter must be omitted.
 kill_dups: delete records with duplicates, equivalent to keeping only records that are singletons.
 dups_only: delete non-duplicate records, i.e., delete all singleton records.
+keep_unique (default, parameter omitted): when N records are duplicates, remove the 2nd to Nth records, keep only the 1st.
 > Example: Supermarket order example table as follows
 OrderID	Product	Salesperson	OrderAmount
 1	Watermelon	Zhang San	100

@@ -22,8 +22,8 @@ Sub-parameter: **as <new_join_column_name>** The new name for the original join 
 SQLazy: join department_number; with department_table; department_number; take department_name, office_address as address	// This is a complete code, no ellipsis.
 
 Parameter: **option**
-The join type for the association. Required parameter; if absent, the parameter value defaults to left join, as in the previous example; enumerated type; the parameter name must be omitted. There are 3 enumeration values: left, inner, full. Note: the 20260916 spec struck through the Chinese enum value 对位 but left the English word align unstruck; align is nevertheless removed from this language version and must never be output.
-left, inner, full: These three enumeration values are understood in the usual sense, similar to the three join types in SQL.
+The join type for the association. Optional parameter; enumerated type; the parameter name must be omitted. This parameter may be omitted, in which case it means a left join, as in the previous example; the only writable parameter values are the two pairs of synonyms inner/match and full/fill. A left join has no enumeration value, so this parameter must be omitted. Note: the 20260916 spec struck through the Chinese enum value 对位 but left the English word align unstruck; align is nevertheless removed from this language version and must never be output.
+inner/match and full/fill: these four words form two pairs of synonyms, understood in the usual sense, similar to the join types in SQL.
 > Instead of the default left join, use a full join to join the employee table and department table.
 SQLazy: join department_number; with department_table; department_number; take department_name, office_address as address; full
 Parameter: **condition <condition_expression>**
