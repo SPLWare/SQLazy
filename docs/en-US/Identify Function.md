@@ -107,8 +107,6 @@ In the above code, "Action1" is the action name (this action does not actually e
 **lower** Convert all uppercase letters in a string to lowercase.
 **upper** Convert all lowercase letters in a string to uppercase.
 **string** Convert a piece of data to a string type, with optional formatting during conversion. When converting time types to strings, a language can be specified.
-
-**chn** Convert a numeric value to a Chinese number string.
 **len** Return the length of a string.
 **left** Return the substring from the first to the Nth character on the left side of a string.
 **right** Return the substring from the first to the Nth character on the right side of a string.
